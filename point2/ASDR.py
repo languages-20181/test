@@ -1,49 +1,62 @@
 #Checks if tokens are valid.
 def A():
+    global token
     if token == "big" or token == "bus" or token == "cat":
         B()
         C()
-    elif token == "ant":
-        match("ant")
+    elif token == 'ant':
+        token = match("ant")
         A()
-        match("all")
+        token = match("all")
     else:
-        pass #syntax_error("big", "bus", "cat", "ant")
+        syntax_error(["big", "bus", "cat", "ant"])
 
 def B():
+    global token
     if token == "big":
-        match ("big")
+        token = match ("big")
         C()
     elif token == "bus":
-        match ("bus")
+        token = match ("bus")
         A()
-        match("boss")
-    else:
-        match("")
+        token = match("boss")
 
 def C():
+    global token
     if token == "cat":
-        match("cat")
+        token = match("cat")
     elif token == "cow":
-        match("cow")
+        token = match("cow")
     else:
-        pass #syntax_error("cat", "cow")
+        syntax_error(["cat", "cow"])
 
 def next_token():
+    global token
+    if len(tokens) == 0:
+        return "EOF"
     token = tokens.pop(0)
     if token not in terminals:
         print("Error lexico: No se reconoce \"" + token + "\"")
         exit(1)
+    return token
 
 def match(expected):
-    #global token
+    global token
     if token == expected:
-        next_token()
+        token = next_token()
     else:
-        syntax_error(expected)
+        syntax_error([expected])
+    return token
 
-def syntax_error():
-    pass
+def syntax_error(expected_values):
+    if len(expected_values) == 1:
+        print "Error sintactico, se esperaba un \'" + expected_values[0] + "\'"
+    else:
+        print "Error sintactico, se esperaban algunos de los siguientes tokens:"
+        for t in expected_values:
+            print t
+
+    exit(2)
 
 print("Analisis Sintactico Descendente Recursivo\n")
 print("Gramatica: \n")
@@ -68,3 +81,8 @@ terminals = ["ant",
 token = ""
 next_token()
 A() #Initial symbol
+
+if (token == "EOF"):
+    print ("Analisis sintactico completado exitosamente.")
+else:
+    syntax_error(["EOF"])
