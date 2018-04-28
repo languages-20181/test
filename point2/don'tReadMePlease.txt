@@ -3,16 +3,17 @@ Output: ???
 
 Grammar:
 
-A -> B uno		{tres, cuatro}
-A -> dos		{dos}
-B -> tres		{tres}
-B -> cuatro A	{cuatro}
+A -> B C 		{big, bus, cat}
+A -> ant A all	{ant}
+B -> big C 		{big}
+B -> bus A boss	{bus}
+B -> <empty>	{<empty>}
+C -> cat 		{cat}
 
-p(A) = {dos, tres, cuatro}
-p(B) = {tres, cuatro}
+p(A) = {big, bus, cat}
+p(B) = {big, bus, <empty>}
+p(C) = {cat}
 
-s(A) = {uno, $}
-s(B) = {uno}
-
-uno dos tres cuatro --> syntaxError('"uno" not Expected')
-cuatro tres dos uno --> A1 | B2 --> syntaxError('')
+s(A) = {$, all, boss}
+s(B) = {cat}
+s(C) = {$, all, boss, cat}
