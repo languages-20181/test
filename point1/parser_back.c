@@ -33,7 +33,7 @@ bool A2(char *s[]);
 
 /* Two helper functions well need */
 void SkipWhitespace(char *s[]);
-bool FormulaWrapper(char *s[]);
+bool ParsingWrapper(char *s[]);
  
 /* 
     Some string constants (so I don't have to type these 
@@ -104,6 +104,7 @@ bool S(char *s[])
     if (!match(s, VOWEL_C))
     {
         *s = original;
+        printf("Dead end\n");
         return false;
     }else{
         printf("Match %s\n", VOWEL_C);
@@ -112,15 +113,15 @@ bool S(char *s[])
     if (!A(s)) 
     {
         *s = original;
-        printf("Dead end");
+        printf("Dead end\n");
         return false;
     }
 
     if (!match(s, VOWEL_D))
     {
         *s = original;
+        printf("Dead end\n");
         return false;
-        printf("Dead end");
     }else{
         printf("Match %s\n", VOWEL_D);
     }
@@ -129,15 +130,16 @@ bool S(char *s[])
 }
 
  /* Identify A (either 'ab' or 'a'*/
- bool A(char *s[]) 
- {
+bool A(char *s[]) 
+{
     char *original = *s;
     SkipWhitespace(s);
     /* Here the backtracking is functional  */
     if (A1(s) || A2(s) )
        return true;
- 
-   *s = original;
+    
+    *s = original;
+    printf("Dead end\n");
     return false;
  }
  bool A1(char *s[]) 
@@ -171,11 +173,11 @@ bool S(char *s[])
  }
 /*
     **********************************************************
-    * Our WRAPPER FUNCTION for parsing*
+    * Our WRAPPER for parsing*
     * This is what we call to check if a string is accepeted.
     **********************************************************
 */
-bool FormulaWrapper(char *s[]) 
+bool ParsingWrapper(char *s[]) 
 {
     char *original = *s;
  
@@ -223,7 +225,7 @@ int main(int argc, char *argv[])
         reset 'copy' to point to start of input buffer
        */
         copy = input;
-        if (FormulaWrapper(&copy))
+        if (ParsingWrapper(&copy))
             printf("---> String Accepted      ;)\n");
         else
             printf("---> String Reject        :(\n");
