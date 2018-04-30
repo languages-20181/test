@@ -9,7 +9,7 @@ return [0-9]+			{ printf("(read,x,_,_)");
 				  return; }
 return [0-9]+ * factorial ( [a-z]|[0-9]|[A-Z]* - [0-9]+ ) {printf("(gt,func_factorial, num,_)");}
 if ([0-9]+ == 0) {              { printf("(gt,x,%d,t1)"); printf("(if_f,t1,L1,_)"); }
-}				{ printf("(parar,_,_,_)")}
+}				{ printf("(parar,_,_,_)");}
 \n                              /* nothing */;
 [ \t]+                          /* nothing */;
 [;]                             /* nothing */;
