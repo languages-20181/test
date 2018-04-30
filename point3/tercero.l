@@ -18,12 +18,6 @@ if ([0-9]+ == 0) {              { printf("(gt,x,%d,t1)"); printf("(if_f,t1,L1,_)
 main(argc, argv) int argc;
 char **argv;
 {
-	if(argc > 1) {
-		if(!(yyin = fopen(argv[1], "r"))) {
-			perror(argv[1]);
-			return (1);
-		}
-	}
   yylex();
   return 0;
 }
