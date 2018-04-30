@@ -166,7 +166,7 @@ bool S(char *s[])
     }  
  
     *s = original;
-    printf("Dead end, Backtrack\n");
+    printf("Dead end\n");
     return false;
  }
 /*
