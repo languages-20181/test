@@ -28,6 +28,8 @@
 /* Prototype for each of the parsing functions we'll use */
 bool S(char *s[]);
 bool A(char *s[]);
+bool A1(char *s[]);
+bool A2(char *s[]);
 
 /* Two helper functions well need */
 void SkipWhitespace(char *s[]);
@@ -75,8 +77,6 @@ bool match(char *s[], const char *token)
         *s = *s + strlen(token);
         return true;
     }
-    
-    printf("Dead end, Backtrack\n");
     return false;
 }
 
@@ -127,25 +127,46 @@ bool S(char *s[])
  
     return true;
 }
- 
+
  /* Identify A (either 'ab' or 'a'*/
  bool A(char *s[]) 
  {
     char *original = *s;
     SkipWhitespace(s);
     /* Here the backtracking is functional  */
+    if (A1(s) || A2(s) )
+       return true;
+ 
+   *s = original;
+    return false;
+ }
+ bool A1(char *s[]) 
+ {
+    char *original = *s;
+    SkipWhitespace(s);
     if (match(s, STRING_AB))
     {
         printf("Match %s \n",STRING_AB);
         return true;
-    }
+    }  
+ 
+    *s = original;
+    printf("Dead end, Backtrack\n");
+    return false;
+ }
+ bool A2(char *s[]) 
+ {
+    char *original = *s;
+    SkipWhitespace(s);
+    /* Here the backtracking is functional  */
     if (match(s, VOWEL_A))
     {
         printf("Match %s \n",VOWEL_A);
         return true;
-    }      
+    }  
  
     *s = original;
+    printf("Dead end, Backtrack\n");
     return false;
  }
 /*
